@@ -10,8 +10,6 @@
 #define SOUTH 3
 #define WEST 4
 
-FILE * logfile;
-
 typedef struct Site_struct {
     int x;
     int y;
