@@ -4,7 +4,7 @@
 
 #include "cbot.h"
 
-#define BOT_NAME "C_semirandom_2"
+#define BOT_NAME "C_SemiRandom"
 
 int main(void) {
 
@@ -20,7 +20,7 @@ int main(void) {
     while (1) {
 
         conn = GetFrame(conn);  // Do this once per frame
-        
+
         // AI logic here. Call SetMove() for each move you want to make.
 
         for (x = 0 ; x < conn.width ; x++) {
