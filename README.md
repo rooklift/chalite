@@ -18,7 +18,7 @@ Other important functions are:
 * `void SetMove(CONN conn, int x, int y, int direction)`
 * `void SendFrame(CONN conn)`
 
-Note that these do not return pointers, nor do they take pointer arguments. To get the next frame, call GetFrame() with the current CONN as its argument. The return value is then a valid CONN containing updated game data. (No extra memory allocation happens; rather, the game data is updated via pointers in the CONN struct. The returned CONN has those same pointers.)
+Note that the functions do not return pointers, nor do they take pointer arguments. To get the next frame, call GetFrame() with the current CONN as its argument. The return value is then a valid CONN containing updated game data. (No extra memory allocation happens; rather, the game data is updated via pointers in the CONN struct. The returned CONN has those same pointers.)
 
 One can always pull whatever info one needs out of the CONN structure. For example, to get the strength at [x,y]:
 
