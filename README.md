@@ -27,7 +27,7 @@ One can always pull whatever info one needs out of the CONN structure. For examp
 However, the following convenience functions are defined, which return a struct containing all the info about a single location:
 
 * `SITE GetSiteFromXY(CONN conn, int x, int y)`
-* `SITE GetSiteFromMovement(CONN conn, int x, int y, int direction)`
+* `SITE GetSiteFromMovement(CONN conn, int src_x, int src_y, int direction)`
 
 The latter is useful for finding info about neighbouring cells. Both these functions handle wraparound automagically.
 

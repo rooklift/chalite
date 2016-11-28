@@ -199,9 +199,13 @@ SITE GetSiteFromXY(CONN conn, int x, int y) {
     return result;
 }
 
-SITE GetSiteFromMovement(CONN conn, int x, int y, int direction) {
+SITE GetSiteFromMovement(CONN conn, int src_x, int src_y, int direction) {
 
     SITE result;
+    int x, y;
+    
+    x = src_x;
+    y = src_y;
 
     switch (direction) {
     case NORTH:
