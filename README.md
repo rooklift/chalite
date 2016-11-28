@@ -26,7 +26,7 @@ However, the following convenience functions are defined, which return a struct 
 * `SITE GetSiteFromXY(CONN conn, int x, int y)`
 * `SITE GetSiteFromMovement(CONN conn, int x, int y, int direction)`
 
-The latter is useful for finding info about neighbouring cells. Wraparound is handled automagically.
+The latter is useful for finding info about neighbouring cells. Both these functions handle wraparound automagically.
 
 Setting a move this frame is done by calling SetMove(). Once all desired moves are set, call SendFrame(). You are now ready to enter your next iteration. Note that GetFrame() will automatically clear the moves of the last frame.
 
