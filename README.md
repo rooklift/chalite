@@ -7,10 +7,13 @@ Two types are defined:
 * `CONN` (for "connection") contains all relevant game data
 * `SITE` contains [x, y, owner, strength, production] for one location
 
-Primary functions defined:
+A game is initialised with these 2 functions:
 
 * `CONN GetInit()`
 * `void SendInit(char *botname)`
+
+Other important functions are:
+
 * `CONN GetFrame(CONN conn)`
 * `void SetMove(CONN conn, int x, int y, int direction)`
 * `void SendFrame(CONN conn)`
