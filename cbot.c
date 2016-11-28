@@ -14,7 +14,7 @@ int main(void) {
 
     srand(time(NULL));
 
-    conn = GetInit();           // To start a game, we
+    conn = GetInit();           // To start a game, you
     SendInit(BOT_NAME);         // must do these two things.
 
     while (1) {
