@@ -14,12 +14,14 @@ int main(void) {
 
     srand(time(NULL));
 
-    conn = GetInit();
-    SendInit(BOT_NAME);
+    conn = GetInit();           // To start a game, we
+    SendInit(BOT_NAME);         // must do these two things.
 
     while (1) {
 
-        conn = GetFrame(conn);
+        conn = GetFrame(conn);  // Do this once per frame
+        
+        // AI logic here. Call SetMove() for each move you want to make.
 
         for (x = 0 ; x < conn.width ; x++) {
             for (y = 0 ; y < conn.height ; y++) {
@@ -34,7 +36,7 @@ int main(void) {
             }
         }
 
-        SendFrame(conn);
+        SendFrame(conn);        // Do this once per frame
     }
 
     return 0;
