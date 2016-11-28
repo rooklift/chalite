@@ -21,7 +21,7 @@ int main(void) {
 
         conn = GetFrame(conn);  // Do this once per frame
 
-        // AI logic here. Call SetMove() for each move you want to make.
+        // AI logic follows. Call SetMove() for each move you want to make.
 
         for (x = 0 ; x < conn.width ; x++) {
             for (y = 0 ; y < conn.height ; y++) {
