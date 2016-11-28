@@ -14,7 +14,8 @@ int main(void) {
 
     srand(time(NULL));
 
-    conn = NewConn(BOT_NAME);
+    conn = GetInit();
+    SendInit(BOT_NAME);
 
     while (1) {
 

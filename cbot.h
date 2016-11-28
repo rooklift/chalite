@@ -128,7 +128,7 @@ CONN __parsemap(CONN conn) {
     return conn;
 }
 
-CONN NewConn(char *botname) {
+CONN GetInit() {
 
     CONN conn;
 
@@ -144,10 +144,12 @@ CONN NewConn(char *botname) {
     conn = __parseproduction(conn);
     conn = __parsemap(conn);
 
+    return conn;
+}
+
+void SendInit(char *botname) {
     printf("%s\n", botname);
     fflush(stdout);
-
-    return conn;
 }
 
 CONN GetFrame(CONN conn) {
