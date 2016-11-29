@@ -4,30 +4,30 @@ C starter package for [Halite](https://halite.io/).
 
 Two types are defined:
 
-* `CONN` (for "connection") contains all relevant game data
+* `GAME` contains all relevant game data
 * `SITE` contains [x, y, owner, strength, production] for one location
 
 A game is initialised with these 2 functions:
 
-* `CONN GetInit()`
+* `GAME GetInit()`
 * `void SendInit(char *botname)`
 
 Other important functions are:
 
-* `CONN GetFrame(CONN conn)`
-* `void SetMove(CONN conn, int x, int y, int direction)`
-* `void SendFrame(CONN conn)`
+* `GAME GetFrame(GAME game)`
+* `void SetMove(GAME game, int x, int y, int direction)`
+* `void SendFrame(GAME game)`
 
-Note that the functions do not return pointers, nor do they take pointer arguments. To get the next frame, call GetFrame() with the current CONN as its argument. The return value is then a valid CONN containing updated game data. (No extra memory allocation happens; rather, the game data is updated via pointers in the CONN struct. The returned CONN has those same pointers.)
+Note that the functions do not return pointers, nor do they take pointer arguments. To get the next frame, call GetFrame() with the current GAME as its argument. The return value is then a valid GAME containing updated game data. (No extra memory allocation happens; rather, the game data is updated via pointers in the GAME struct. The returned GAME has those same pointers.)
 
-One can always pull whatever info one needs out of the CONN structure. For example, to get the strength at [x,y]:
+One can always pull whatever info one needs out of the GAME structure. For example, to get the strength at [x,y]:
 
-`s = conn.strength[x][y]`
+`s = game.strength[x][y]`
 
 However, the following convenience functions are defined, which return a struct containing all the info about a single location:
 
-* `SITE GetSiteFromXY(CONN conn, int x, int y)`
-* `SITE GetSiteFromMovement(CONN conn, int src_x, int src_y, int direction)`
+* `SITE GetSiteFromXY(GAME game, int x, int y)`
+* `SITE GetSiteFromMovement(GAME game, int src_x, int src_y, int direction)`
 
 The latter is useful for finding info about neighbouring cells. Both these functions handle wraparound automagically.
 
