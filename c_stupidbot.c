@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "cbot.h"
+#include "hlt.h"
 
 #define BOT_NAME "C_StupidBot"
 

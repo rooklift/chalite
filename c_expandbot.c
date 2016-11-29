@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "cbot.h"
+#include "hlt.h"
 
 #define BOT_NAME "C_ExpandBot"
 
@@ -25,9 +25,7 @@ int main(void) {
 
         for (x = 0 ; x < conn.width ; x++) {
             for (y = 0 ; y < conn.height ; y++) {
-
                 if (conn.owner[x][y] == conn.playertag) {
-
                     neutral_count = 0;
 
                     // Attack nearby neutrals if possible
@@ -35,9 +33,7 @@ int main(void) {
                     for (direction = 1 ; direction <= 4 ; direction++) {
                         target = GetSiteFromMovement(conn, x, y, direction);
                         if (target.owner == 0) {
-
                             neutral_count++;
-
                             if (target.strength < conn.strength[x][y]) {
                                 SetMove(conn, x, y, direction);
                                 break;
