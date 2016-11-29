@@ -18,7 +18,7 @@ typedef struct Site_struct {
     int production;
 } SITE;
 
-typedef struct Conn_struct {
+typedef struct Game_struct {
     int width;
     int height;
     int playertag;
@@ -26,7 +26,7 @@ typedef struct Conn_struct {
     int ** owner;
     int ** production;
     int ** strength;
-} CONN;
+} GAME;
 
 int ** __new_2d_int_array(int width, int height) {
 
@@ -77,17 +77,17 @@ int __getnextint() {
     return 54321;       // Never get here.
 }
 
-CONN __parseproduction(CONN conn) {
+GAME __parseproduction(GAME game) {
     int x, y;
-    for (y = 0 ; y < conn.height ; y++) {
-        for (x = 0 ; x < conn.width ; x++) {
-            conn.production[x][y] = __getnextint();
+    for (y = 0 ; y < game.height ; y++) {
+        for (x = 0 ; x < game.width ; x++) {
+            game.production[x][y] = __getnextint();
         }
     }
-    return conn;
+    return game;
 }
 
-CONN __parsemap(CONN conn) {
+GAME __parsemap(GAME game) {
 
     int x, y;
     int run;
@@ -99,50 +99,50 @@ CONN __parsemap(CONN conn) {
     y = 0;
     total_set = 0;
     set_this_run = 0;
-    while (total_set < conn.width * conn.height) {
+    while (total_set < game.width * game.height) {
 
         run = __getnextint();
         owner = __getnextint();
 
         for (set_this_run = 0 ; set_this_run < run ; set_this_run++) {
 
-            conn.owner[x][y] = owner;
+            game.owner[x][y] = owner;
             total_set++;
 
             x++;
-            if (x == conn.width) {
+            if (x == game.width) {
                 x = 0;
                 y += 1;
             }
         }
     }
 
-    for (y = 0 ; y < conn.height ; y++) {
-        for (x = 0 ; x < conn.width ; x++) {
-            conn.strength[x][y] = __getnextint();
+    for (y = 0 ; y < game.height ; y++) {
+        for (x = 0 ; x < game.width ; x++) {
+            game.strength[x][y] = __getnextint();
         }
     }
 
-    return conn;
+    return game;
 }
 
-CONN GetInit() {
+GAME GetInit() {
 
-    CONN conn;
+    GAME game;
 
-    conn.playertag = __getnextint();
-    conn.width = __getnextint();
-    conn.height = __getnextint();
+    game.playertag = __getnextint();
+    game.width = __getnextint();
+    game.height = __getnextint();
 
-    conn.moves = __new_2d_int_array(conn.width, conn.height);
-    conn.owner = __new_2d_int_array(conn.width, conn.height);
-    conn.production = __new_2d_int_array(conn.width, conn.height);
-    conn.strength = __new_2d_int_array(conn.width, conn.height);
+    game.moves = __new_2d_int_array(game.width, game.height);
+    game.owner = __new_2d_int_array(game.width, game.height);
+    game.production = __new_2d_int_array(game.width, game.height);
+    game.strength = __new_2d_int_array(game.width, game.height);
 
-    conn = __parseproduction(conn);
-    conn = __parsemap(conn);
+    game = __parseproduction(game);
+    game = __parsemap(game);
 
-    return conn;
+    return game;
 }
 
 void SendInit(char *botname) {
@@ -150,60 +150,60 @@ void SendInit(char *botname) {
     fflush(stdout);
 }
 
-CONN GetFrame(CONN conn) {
+GAME GetFrame(GAME game) {
 
     int x, y;
-    conn = __parsemap(conn);
+    game = __parsemap(game);
 
     // Reset the moves array while we're at it.
 
-    for (x = 0 ; x < conn.width ; x++) {
-        for (y = 0 ; y < conn.height ; y++) {
-            conn.moves[x][y] = STILL;
+    for (x = 0 ; x < game.width ; x++) {
+        for (y = 0 ; y < game.height ; y++) {
+            game.moves[x][y] = STILL;
         }
     }
 
-    return conn;
+    return game;
 }
 
-int __sanitise_x(CONN conn, int x) {
+int __sanitise_x(GAME game, int x) {
     if (x < 0) {
-        x += -(x / conn.width) * conn.width + conn.width;      // Can make x == width, so must still use % later
+        x += -(x / game.width) * game.width + game.width;      // Can make x == width, so must still use % later
     }
-    x %= conn.width;
+    x %= game.width;
     return x;
 }
 
-int __sanitise_y(CONN conn, int y) {
+int __sanitise_y(GAME game, int y) {
     if (y < 0) {
-        y += -(y / conn.height) * conn.height + conn.height;   // Can make y == height, so must still use % later
+        y += -(y / game.height) * game.height + game.height;   // Can make y == height, so must still use % later
     }
-    y %= conn.height;
+    y %= game.height;
     return y;
 }
 
-SITE GetSiteFromXY(CONN conn, int x, int y) {
+SITE GetSiteFromXY(GAME game, int x, int y) {
 
     SITE result;
 
-    x = __sanitise_x(conn, x);
-    y = __sanitise_y(conn, y);
+    x = __sanitise_x(game, x);
+    y = __sanitise_y(game, y);
 
     result.x = x;
     result.y = y;
 
-    result.owner = conn.owner[result.x][result.y];
-    result.production = conn.production[result.x][result.y];
-    result.strength = conn.strength[result.x][result.y];
+    result.owner = game.owner[result.x][result.y];
+    result.production = game.production[result.x][result.y];
+    result.strength = game.strength[result.x][result.y];
 
     return result;
 }
 
-SITE GetSiteFromMovement(CONN conn, int src_x, int src_y, int direction) {
+SITE GetSiteFromMovement(GAME game, int src_x, int src_y, int direction) {
 
     SITE result;
     int x, y;
-    
+
     x = src_x;
     y = src_y;
 
@@ -222,28 +222,28 @@ SITE GetSiteFromMovement(CONN conn, int src_x, int src_y, int direction) {
         break;
     }
 
-    x = __sanitise_x(conn, x);
-    y = __sanitise_y(conn, y);
+    x = __sanitise_x(game, x);
+    y = __sanitise_y(game, y);
 
-    result = GetSiteFromXY(conn, x, y);
+    result = GetSiteFromXY(game, x, y);
 
     return result;
 }
 
-void SetMove(CONN conn, int x, int y, int direction) {
-    x = __sanitise_x(conn, x);
-    y = __sanitise_y(conn, y);
-    conn.moves[x][y] = direction;
+void SetMove(GAME game, int x, int y, int direction) {
+    x = __sanitise_x(game, x);
+    y = __sanitise_y(game, y);
+    game.moves[x][y] = direction;
     return;
 }
 
-void SendFrame(CONN conn) {
+void SendFrame(GAME game) {
     int x, y;
 
-    for (x = 0 ; x < conn.width ; x++) {
-        for (y = 0 ; y < conn.height ; y++) {
-            if (conn.moves[x][y] != STILL && conn.owner[x][y] == conn.playertag) {
-                printf("%d %d %d ", x, y, conn.moves[x][y]);
+    for (x = 0 ; x < game.width ; x++) {
+        for (y = 0 ; y < game.height ; y++) {
+            if (game.moves[x][y] != STILL && game.owner[x][y] == game.playertag) {
+                printf("%d %d %d ", x, y, game.moves[x][y]);
             }
         }
     }

@@ -8,34 +8,34 @@
 
 int main(void) {
 
-    CONN conn;
+    GAME game;
     SITE target;
     int x, y, direction, neutral_count;
 
     srand(time(NULL));
 
-    conn = GetInit();           // To start a game, you
+    game = GetInit();           // To start a game, you
     SendInit(BOT_NAME);         // must do these two things.
 
     while (1) {
 
-        conn = GetFrame(conn);  // Do this once per frame
+        game = GetFrame(game);  // Do this once per frame
 
         // AI logic follows. Call SetMove() for each move you want to make.
 
-        for (x = 0 ; x < conn.width ; x++) {
-            for (y = 0 ; y < conn.height ; y++) {
-                if (conn.owner[x][y] == conn.playertag) {
+        for (x = 0 ; x < game.width ; x++) {
+            for (y = 0 ; y < game.height ; y++) {
+                if (game.owner[x][y] == game.playertag) {
                     neutral_count = 0;
 
                     // Attack nearby neutrals if possible
 
                     for (direction = 1 ; direction <= 4 ; direction++) {
-                        target = GetSiteFromMovement(conn, x, y, direction);
+                        target = GetSiteFromMovement(game, x, y, direction);
                         if (target.owner == 0) {
                             neutral_count++;
-                            if (target.strength < conn.strength[x][y]) {
-                                SetMove(conn, x, y, direction);
+                            if (target.strength < game.strength[x][y]) {
+                                SetMove(game, x, y, direction);
                                 break;
                             }
                         }
@@ -45,13 +45,13 @@ int main(void) {
 
                     if (neutral_count == 0) {
                         direction = rand() % 5;
-                        SetMove(conn, x, y, direction);
+                        SetMove(game, x, y, direction);
                     }
                 }
             }
         }
 
-        SendFrame(conn);        // Do this once per frame
+        SendFrame(game);        // Do this once per frame
     }
 
     return 0;
