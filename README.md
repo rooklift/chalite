@@ -33,4 +33,4 @@ The latter is useful for finding info about neighbouring cells. Both these funct
 
 Setting a move this frame is done by calling SetMove(). Once all desired moves are set, call SendFrame(). You are now ready to enter your next iteration. Note that GetFrame() will automatically clear the moves of the last frame.
 
-A sample bot is included which makes this all fairly obvious.
+Sample bots are included; they make this all fairly obvious.

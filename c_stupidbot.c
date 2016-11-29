@@ -4,7 +4,7 @@
 
 #include "cbot.h"
 
-#define BOT_NAME "C_SemiRandom"
+#define BOT_NAME "C_StupidBot"
 
 int main(void) {
 
