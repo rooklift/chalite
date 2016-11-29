@@ -1,8 +1,26 @@
+/*
+    In general, none of the public functions return pointers,
+    nor do they take pointer arguments.
+
+    Useful functions:
+
+        GAME GetInit()
+        void SendInit(char *botname)
+        GAME GetFrame(GAME game)
+        void SetMove(GAME game, int x, int y, int direction)
+        void SendFrame(GAME game)
+
+    Convenience functions:
+
+        SITE GetSiteFromXY(GAME game, int x, int y)
+        SITE GetSiteFromMovement(GAME game, int src_x, int src_y, int direction)
+
+    Pssst! More documentation and some better bots are at:
+    https://github.com/fohristiwhirl/chalite
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
-
-// In general, none of the public functions return pointers,
-// nor do they take pointer arguments.
 
 #define STILL 0
 #define NORTH 1
@@ -78,7 +96,9 @@ int __getnextint() {
 }
 
 GAME __parseproduction(GAME game) {
+
     int x, y;
+
     for (y = 0 ; y < game.height ; y++) {
         for (x = 0 ; x < game.width ; x++) {
             game.production[x][y] = __getnextint();
@@ -153,6 +173,7 @@ void SendInit(char *botname) {
 GAME GetFrame(GAME game) {
 
     int x, y;
+
     game = __parsemap(game);
 
     // Reset the moves array while we're at it.
@@ -168,7 +189,7 @@ GAME GetFrame(GAME game) {
 
 int __sanitise_x(GAME game, int x) {
     if (x < 0) {
-        x += -(x / game.width) * game.width + game.width;      // Can make x == width, so must still use % later
+        x += -(x / game.width) * game.width + game.width;      // Can make x == width, so must still use % next
     }
     x %= game.width;
     return x;
@@ -176,7 +197,7 @@ int __sanitise_x(GAME game, int x) {
 
 int __sanitise_y(GAME game, int y) {
     if (y < 0) {
-        y += -(y / game.height) * game.height + game.height;   // Can make y == height, so must still use % later
+        y += -(y / game.height) * game.height + game.height;   // Can make y == height, so must still use % next
     }
     y %= game.height;
     return y;
@@ -238,6 +259,7 @@ void SetMove(GAME game, int x, int y, int direction) {
 }
 
 void SendFrame(GAME game) {
+
     int x, y;
 
     for (x = 0 ; x < game.width ; x++) {
