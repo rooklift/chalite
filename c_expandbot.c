@@ -19,7 +19,7 @@ int main(void) {
 
     while (1) {
 
-        game = GetFrame(game);  // Do this once per frame
+        GetFrame(game);         // Do this once per frame
 
         // AI logic follows. Call SetMove() for each move you want to make.
 

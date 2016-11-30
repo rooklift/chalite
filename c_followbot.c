@@ -32,7 +32,7 @@ int main(void) {
 
     while (1) {
 
-        game = GetFrame(game);  // Do this once per frame
+        GetFrame(game);         // Do this once per frame
 
         turn++;
 

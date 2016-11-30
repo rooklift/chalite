@@ -14,11 +14,11 @@ A game is initialised with these 2 functions:
 
 Other important functions are:
 
-* `GAME GetFrame(GAME game)`
+* `void GetFrame(GAME game)`
 * `void SetMove(GAME game, int x, int y, int direction)`
 * `void SendFrame(GAME game)`
 
-Note that the functions do not return pointers, nor do they take pointer arguments. To get the next frame, call GetFrame() with the current GAME as its argument. The return value is then a valid GAME containing updated game data. (No extra memory allocation happens; rather, the game data is updated via pointers in the GAME struct. The returned GAME has those same pointers.)
+Note that the functions do not return pointers, nor do they take pointer arguments (they take value arguments). To get the next frame, call GetFrame() with the current GAME as its argument. The calling function's GAME is now up to date, because the GAME struct contains pointers to the actual data, and that data is updated by GetFrame(). (No extra memory allocation happens.)
 
 One can always pull whatever info one needs out of the GAME structure. For example, to get the strength at [x,y]:
 
